@@ -1,0 +1,50 @@
+// Project-Type
+apply plugin: "cpp"
+
+model {
+    repositories {
+        libs(PrebuiltLibraries) {
+            easyloggingpp {
+                headers.srcDir "easyloggingpp/src"
+            }
+        }
+    }
+
+    components {
+        primesieve(NativeLibrarySpec) {
+            if(System.properties['sun.arch.data.model'] == "64") {
+                targetPlatform "x64"
+            } else {
+                targetPlatform "x86"
+            }
+
+            sources.cpp {
+                source {
+                    srcDirs "primesieve"
+                    include "src/**/*.cpp"
+                }
+                exportedHeaders {
+                    srcDirs "primesieve"
+                    include "inculde/**/*.hpp"
+                }
+            }
+        }
+    }
+    
+    binaries {
+        withType(SharedLibraryBinarySpec) {
+            buildable = false
+        }
+        withType(StaticLibraryBinarySpec) {
+            if (toolChain in Gcc) {
+                cppCompiler.args "-std=c++1y", "-w", "-Ofast", "-g0"
+            }
+            if (toolChain in Clang) {
+                cppCompiler.args "-std=c++1y", "-w", "-Ofast", "-g0"
+            }
+            if (toolChain in VisualCpp) {
+                cppCompiler.args "/std:c++14", "/W0", "/EHsc", "/O2"
+            }
+        }
+    }
+}
