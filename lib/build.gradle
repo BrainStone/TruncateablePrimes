@@ -20,12 +20,12 @@ model {
 
             sources.cpp {
                 source {
-                    srcDirs "primesieve"
-                    include "src/**/*.cpp"
+                    srcDirs "primesieve/src"
+                    include "*.cpp"
                 }
                 exportedHeaders {
-                    srcDirs "primesieve"
-                    include "inculde/**/*.hpp"
+                    srcDirs "primesieve/include"
+                    include "**/*.hpp"
                 }
             }
         }
