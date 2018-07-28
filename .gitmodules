@@ -1,3 +1,6 @@
 [submodule "lib/primesieve"]
 	path = lib/primesieve
-	url = git@github.com:kimwalisch/primesieve.git
+	url = https://github.com/kimwalisch/primesieve.git
+[submodule "lib/easylogging"]
+	path = lib/easylogging
+	url = https://github.com/muflihun/easyloggingpp.git
