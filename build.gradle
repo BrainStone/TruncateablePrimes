@@ -68,8 +68,10 @@ model {
                     include "**/*.hpp"
                 }
                 
-                lib project: ":lib", library: "primesieve", linkage: "static"
                 lib project: ":lib", library: "easyloggingpp", linkage: "api"
+                lib project: ":lib", library: "gmp", linkage: "shared"
+                lib project: ":lib", library: "gmpxx", linkage: "shared"
+                lib project: ":lib", library: "primesieve", linkage: "static"
             }
         }
     }

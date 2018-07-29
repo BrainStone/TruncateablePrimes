@@ -31,6 +31,17 @@ Building is super straight forward:
 
 This will build the project and all its dependencies.
 
+### GMP
+
+This program depends on the GMP library (libgmp) and its C++ Wrapper (libgmpxx). Due to the complexity I cannot include GMP here directly.  
+In general you have two options:
+
+- Install it system wide *(usually installing the package `libgmpxx-dev` will do the trick. But any proper system wide installation will work)* **(Linux only)**
+- Provide the files yourself:
+  - Put the `gmp.h` and `gmpxx.h` in the `lib/gmp/include` dir
+  - Put the library files in the `lib/gmp/lib` dir *(`libgmp.so` and `libgmpxx.so` on Linux, `libgmp.dylib` and `libgmpxx.dylib` on OSX, `gmp.dll` and
+    `gmpxx.dll` or `gmp.lib` and `gmpxx.lib` on Windows)*
+
 ### Documentation
 
 This project comes with a Doxyfile. You can either generate the documentation manually by using Doxygen from the command line, or by running this gradle task:

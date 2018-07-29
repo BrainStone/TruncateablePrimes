@@ -12,6 +12,7 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-7
+            - libgmp-dev
       env:
         - MATRIX_EVAL="export CC=gcc-7 && export CXX=g++-7"
     - os: osx
@@ -32,6 +33,7 @@ matrix:
             - llvm-toolchain-trusty-5.0
           packages:
             - clang-5.0
+            - libgmp-dev
       env:
         - MATRIX_EVAL="export CC=clang-5.0 && export CXX=clang++-5.0"
 
