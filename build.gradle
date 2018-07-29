@@ -16,6 +16,8 @@ buildscript {
 
 // Project-Type
 apply plugin: "cpp"
+// Test Suite
+apply plugin: "google-test"
 // IDEs
 apply plugin: "visual-studio"
 
