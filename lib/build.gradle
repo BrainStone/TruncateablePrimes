@@ -11,14 +11,16 @@ model {
                 headers.srcDir "gmp/include"
                 binaries.withType(StaticLibraryBinary) {
                     def libName = targetPlatform.operatingSystem.windows ? 'gmp.lib' : 'libgmp.a'
-                    staticLibraryFile = file("gmp/lib/${libName}")
+                    def libFile = file("gmp/lib/${libName}")
+                    if(libFile.exists()) staticLibraryFile = libFile
                 }
             }
             gmpxx {
                 headers.srcDir "gmp/include"
                 binaries.withType(StaticLibraryBinary) {
                     def libName = targetPlatform.operatingSystem.windows ? 'gmpxx.lib' : 'libgmpxx.a'
-                    staticLibraryFile = file("gmp/lib/${libName}")
+                    def libFile = file("gmp/lib/${libName}")
+                    if(libFile.exists()) staticLibraryFile = libFile
                 }
             }
         }
