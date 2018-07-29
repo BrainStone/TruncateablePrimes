@@ -7,5 +7,6 @@
 #include <iostream>
 
 #include <gmpxx.h>
+#include <primesieve.hpp>
 
 bool is_prime( const mpz_class& number );

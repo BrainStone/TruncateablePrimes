@@ -5,16 +5,13 @@
 #include "primality.hpp"
 
 bool is_prime( const mpz_class& number ) {
-	int reps = 8;
-	int result;
+	uint64_t prime;
+	uint64_t root = sqrt( number ).get_ui();
+	primesieve::iterator it;
 
-	do {
-		reps *= 2;
+	while ( (prime = it.next_prime()) <= root )
+		if ( number % prime == 0 )
+			return false;
 
-		std::clog << reps << std::endl;
-
-		result = mpz_probab_prime_p( number.get_mpz_t(), reps );
-	} while ( result == 1 );
-
-	return result;
+	return true;
 }
