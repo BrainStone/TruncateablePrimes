@@ -59,15 +59,6 @@ model {
             }
 
             sources.cpp {
-                source {
-                    srcDirs "src"
-                    include "**/*.cpp"
-                }
-                exportedHeaders {
-                    srcDirs "src"
-                    include "**/*.hpp"
-                }
-                
                 lib project: ":lib", library: "easyloggingpp", linkage: "api"
                 lib project: ":lib", library: "gmpxx", linkage: "static"
                 lib project: ":lib", library: "gmp", linkage: "static"
