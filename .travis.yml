@@ -48,3 +48,9 @@ install:
 script:
   - ./gradlew --console=plain assemble
   - ./gradlew --console=plain check
+
+after_failure:
+  - shopt -s globstar
+  - shopt -s nullglob
+  - tail -n +1 **/build/tmp/*{Library,Executable}/*.txt 
+
