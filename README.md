@@ -39,8 +39,7 @@ In general you have two options:
 - Install it system wide *(usually installing the package `libgmpxx-dev` will do the trick. But any proper system wide installation will work)* **(Linux only)**
 - Provide the files yourself:
   - Put the `gmp.h` and `gmpxx.h` in the `lib/gmp/include` dir
-  - Put the library files in the `lib/gmp/lib` dir *(`libgmp.so` and `libgmpxx.so` on Linux, `libgmp.dylib` and `libgmpxx.dylib` on OSX, `gmp.dll` and
-    `gmpxx.dll` or `gmp.lib` and `gmpxx.lib` on Windows)*
+  - Put the library files in the `lib/gmp/lib` dir *(`libgmp.a` and `libgmpxx.a` on Linux and OSX, `gmp.lib` and `gmpxx.lib` on Windows)*
 
 ### Documentation
 
