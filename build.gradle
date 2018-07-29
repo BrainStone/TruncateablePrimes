@@ -69,8 +69,8 @@ model {
                 }
                 
                 lib project: ":lib", library: "easyloggingpp", linkage: "api"
-                lib project: ":lib", library: "gmp", linkage: "static"
                 lib project: ":lib", library: "gmpxx", linkage: "static"
+                lib project: ":lib", library: "gmp", linkage: "static"
                 lib project: ":lib", library: "primesieve", linkage: "static"
             }
         }
