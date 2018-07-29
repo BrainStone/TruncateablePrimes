@@ -9,38 +9,16 @@ model {
             }
             gmp {
                 headers.srcDir "gmp/include"
-                binaries.withType(SharedLibraryBinary) {
-                    def os = targetPlatform.operatingSystem
-                    def baseDir = "gmp/lib"
-                    if (os.windows) {
-                        // Windows uses a .dll file, with a different link file if it exists (not Cygwin or MinGW)
-                        sharedLibraryFile = file("${baseDir}/gmp.dll")
-                        if (file("${baseDir}/util.lib").exists()) {
-                            sharedLibraryLinkFile = file("${baseDir}/gmp.lib")
-                        }
-                    } else if (os.macOsX) {
-                        sharedLibraryFile = file("${baseDir}/libgmp.dylib")
-                    } else {
-                        sharedLibraryFile = file("${baseDir}/libgmp.so")
-                    }
+                binaries.withType(StaticLibraryBinary) {
+                    def libName = targetPlatform.operatingSystem.windows ? 'gmp.lib' : 'libgmp.a'
+                    staticLibraryFile = file("gmp/lib/${libName}")
                 }
             }
             gmpxx {
                 headers.srcDir "gmp/include"
-                binaries.withType(SharedLibraryBinary) {
-                    def os = targetPlatform.operatingSystem
-                    def baseDir = "gmp/lib"
-                    if (os.windows) {
-                        // Windows uses a .dll file, with a different link file if it exists (not Cygwin or MinGW)
-                        sharedLibraryFile = file("${baseDir}/gmp.dll")
-                        if (file("${baseDir}/util.lib").exists()) {
-                            sharedLibraryLinkFile = file("${baseDir}/gmp.lib")
-                        }
-                    } else if (os.macOsX) {
-                        sharedLibraryFile = file("${baseDir}/libgmp.dylib")
-                    } else {
-                        sharedLibraryFile = file("${baseDir}/libgmp.so")
-                    }
+                binaries.withType(StaticLibraryBinary) {
+                    def libName = targetPlatform.operatingSystem.windows ? 'gmpxx.lib' : 'libgmpxx.a'
+                    staticLibraryFile = file("gmp/lib/${libName}")
                 }
             }
         }

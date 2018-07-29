@@ -51,7 +51,7 @@ model {
     }
 
     components {
-        truncatablePrimes(NativeLibrarySpec) {
+        truncatablePrimes(NativeExecutableSpec) {
             if(System.properties['sun.arch.data.model'] == "64") {
                 targetPlatform "x64"
             } else {
@@ -69,8 +69,8 @@ model {
                 }
                 
                 lib project: ":lib", library: "easyloggingpp", linkage: "api"
-                lib project: ":lib", library: "gmp", linkage: "shared"
-                lib project: ":lib", library: "gmpxx", linkage: "shared"
+                lib project: ":lib", library: "gmp", linkage: "static"
+                lib project: ":lib", library: "gmpxx", linkage: "static"
                 lib project: ":lib", library: "primesieve", linkage: "static"
             }
         }
