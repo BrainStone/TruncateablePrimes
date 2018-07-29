@@ -4,6 +4,8 @@
 //
 #pragma once
 
+#include <iostream>
+
 #include <gmpxx.h>
 
 bool is_prime( const mpz_class& number );

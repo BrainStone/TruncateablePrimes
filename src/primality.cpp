@@ -10,6 +10,9 @@ bool is_prime( const mpz_class& number ) {
 
 	do {
 		reps *= 2;
+
+		std::clog << reps << std::endl;
+
 		result = mpz_probab_prime_p( number.get_mpz_t(), reps );
 	} while ( result == 1 );
 
