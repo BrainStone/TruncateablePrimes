@@ -46,6 +46,24 @@ model {
                 }
             }
         }
+        googleTest(NativeLibrarySpec) {
+            if(System.properties['sun.arch.data.model'] == "64") {
+                targetPlatform "x64"
+            } else {
+                targetPlatform "x86"
+            }
+
+            sources.cpp {
+                source {
+                    srcDirs "googletest/googletest/src"
+                    include "*.cpp"
+                }
+                exportedHeaders {
+                    srcDirs "googletest/googletest/include"
+                    include "**/*.hpp"
+                }
+            }
+        }
     }
     
     binaries {
