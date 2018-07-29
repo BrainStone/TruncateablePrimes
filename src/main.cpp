@@ -9,18 +9,12 @@
 #include "primality.hpp"
 
 int main() {
-	mpz_class test( 1 );
+	mpz_class prime1( "216567629137" );
+	mpz_class prime2( "357686312646216567629137" );
 
-	std::cout << test << std::endl;
+	std::cout << prime1 << " has " << mpz_sizeinbase( prime1.get_mpz_t(), 2 ) << " bits" << std::flush;
+	std::cout << " and " << (is_prime( prime1 ) ? "is" : "is not") << " a prime." << std::endl;
 
-	for ( int i = 0; i < 100; ++i ) {
-		test <<= 1;
-
-		std::cout << test << std::endl;
-	}
-
-	mpz_class prime( "357686312646216567629137" );
-
-	std::cout << prime << " has " << mpz_sizeinbase( prime.get_mpz_t(), 2 ) << " bits" << std::flush;
-	std::cout << " and " << (is_prime( prime ) ? "is" : "is not") << " a prime." << std::endl;
+	std::cout << prime2 << " has " << mpz_sizeinbase( prime2.get_mpz_t(), 2 ) << " bits" << std::flush;
+	std::cout << " and " << (is_prime( prime2 ) ? "is" : "is not") << " a prime." << std::endl;
 }
