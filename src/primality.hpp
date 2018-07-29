@@ -4,8 +4,6 @@
 //
 #pragma once
 
-#include <iostream>
-
 #include <gmpxx.h>
 #include <primesieve.hpp>
 
