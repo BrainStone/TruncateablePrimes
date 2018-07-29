@@ -4,6 +4,7 @@ apply plugin: "cpp"
 model {
     repositories {
         libs(PrebuiltLibraries) {
+            def libBasePath = 
             easyloggingpp {
                 headers.srcDir "easyloggingpp/src"
             }
@@ -12,7 +13,7 @@ model {
                 binaries.withType(StaticLibraryBinary) {
                     def libName = targetPlatform.operatingSystem.windows ? 'gmp.lib' : 'libgmp.a'
                     def libFile = file("gmp/lib/${libName}")
-                    if(libFile.exists()) staticLibraryFile = libFile
+                    staticLibraryFile = libFile.exists()? libFile : file("/usr/lib/x86_64-linux-gnu/${libName}")
                 }
             }
             gmpxx {
@@ -20,7 +21,7 @@ model {
                 binaries.withType(StaticLibraryBinary) {
                     def libName = targetPlatform.operatingSystem.windows ? 'gmpxx.lib' : 'libgmpxx.a'
                     def libFile = file("gmp/lib/${libName}")
-                    if(libFile.exists()) staticLibraryFile = libFile
+                    staticLibraryFile = libFile.exists()? libFile : file("/usr/lib/x86_64-linux-gnu/${libName}")
                 }
             }
         }

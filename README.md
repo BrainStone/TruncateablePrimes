@@ -36,7 +36,7 @@ This will build the project and all its dependencies.
 This program depends on the GMP library (libgmp) and its C++ Wrapper (libgmpxx). Due to the complexity I cannot include GMP here directly.  
 In general you have two options:
 
-- Install it system wide *(usually installing the package `libgmpxx-dev` will do the trick. But any proper system wide installation will work)* **(Linux only)**
+- Install it system wide. The library files should be in `/usr/lib/x86_64-linux-gnu` **(Linux only)**
 - Provide the files yourself:
   - Put the `gmp.h` and `gmpxx.h` in the `lib/gmp/include` dir
   - Put the library files in the `lib/gmp/lib` dir *(`libgmp.a` and `libgmpxx.a` on Linux and OSX, `gmp.lib` and `gmpxx.lib` on Windows)*
