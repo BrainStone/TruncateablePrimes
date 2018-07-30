@@ -38,7 +38,7 @@ allprojects {
             debug
             release
         }
-    } 
+    }
 }
 
 model {
@@ -68,7 +68,7 @@ model {
             }
         }
     }
-    
+
     binaries {
         all {
             if (toolChain in Gcc) {
@@ -82,10 +82,10 @@ model {
             if (toolChain in VisualCpp) {
                 cppCompiler.args "/std:c++14", "/W4", "/FS", "/EHsc"
             }
-            
+
             if(buildType == buildTypes.debug) {
                 cppCompiler.define "__DEBUG__"
-    
+
                 if (toolChain in Gcc) {
                     cppCompiler.args "-Og", "-g3"
                 }
@@ -98,7 +98,7 @@ model {
             }
             if(buildType == buildTypes.release) {
                 cppCompiler.define "__NDEBUG__"
-    
+
                 if (toolChain in Gcc) {
                     cppCompiler.args "-Ofast", "-g0"
                 }
@@ -111,7 +111,13 @@ model {
             }
         }
         withType(GoogleTestTestSuiteBinarySpec) {
-            lib project: ":lib", library: "googleTest", linkage: "static" 
+            lib project: ":lib", library: "googleTest", linkage: "static"
+
+            // Temp
+            lib project: ":lib", library: "easyloggingpp", linkage: "api"
+            lib project: ":lib", library: "gmpxx", linkage: "static"
+            lib project: ":lib", library: "gmp", linkage: "static"
+            lib project: ":lib", library: "primesieve", linkage: "static"
 
             if (targetPlatform.operatingSystem.linux) {
                 cppCompiler.args '-pthread'

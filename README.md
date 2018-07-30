@@ -20,7 +20,7 @@ If you forgot to do that, you can download the submodules later by running
 
 This repo also provides a few simple hooks to make working with submodules easier. While it is not necessary to do this step, it is recommended.
 
-    $ cp -v .hooks/* .git/hooks/
+    $ cp -va .hooks/* .git/hooks/
 
 ## Building
 
