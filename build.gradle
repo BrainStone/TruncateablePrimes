@@ -119,6 +119,8 @@ model {
             lib project: ":lib", library: "gmp", linkage: "static"
             lib project: ":lib", library: "primesieve", linkage: "static"
 
+            cppCompiler.define "GOOGLE_TEST"
+
             if (targetPlatform.operatingSystem.linux) {
                 cppCompiler.args '-pthread'
                 linker.args '-pthread'

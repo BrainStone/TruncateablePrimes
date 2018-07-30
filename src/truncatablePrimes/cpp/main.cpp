@@ -11,6 +11,7 @@
 
 void do_primnecheck( mpz_class num );
 
+#ifndef GOOGLE_TEST
 int main() {
 	const std::string number( "357686312646216567629137" );
 
@@ -18,6 +19,7 @@ int main() {
 		do_primnecheck( mpz_class( std::string( number, i ) ) );
 	}
 }
+#endif
 
 void do_primnecheck( mpz_class num ) {
 	std::cout << num << " has " << mpz_sizeinbase( num.get_mpz_t(), 2 ) << " bits" << std::flush;
