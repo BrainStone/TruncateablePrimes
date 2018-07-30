@@ -4,6 +4,25 @@
 //
 #include "gmp_util.hpp"
 
+template <typename F>
+struct final_action {
+	final_action( F f ) : clean_ { f } {}
+	~final_action() {
+		if ( enabled_ ) clean_();
+	}
+	void disable() {
+		enabled_ = false;
+	};
+private:
+	F clean_;
+	bool enabled_ { true };
+};
+
+template <typename F>
+final_action<F> finally(F f) {
+	return final_action<F>( f );
+}
+
 constexpr size_t uint64_size = sizeof( uint64_t );
 
 mpz_class uint64_t_to_mpz_class( const uint64_t& in ) {
