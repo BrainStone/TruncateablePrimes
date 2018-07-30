@@ -56,11 +56,11 @@ model {
             sources.cpp {
                 source {
                     srcDirs "googletest/googletest/src"
-                    include "*.cpp"
+                    include "*.cc"
                 }
                 exportedHeaders {
                     srcDirs "googletest/googletest/include"
-                    include "**/*.hpp"
+                    include "**/*.h"
                 }
             }
         }
@@ -72,10 +72,12 @@ model {
         }
         withType(StaticLibraryBinarySpec) {
             if (toolChain in Gcc) {
-                cppCompiler.args "-std=c++1y", "-w", "-Ofast", "-g0"
+                cppCompiler.args "-std=c++1y", "-w", "-Ofast", "-g0", "-pthread"
+                linker.args "-pthread"
             }
             if (toolChain in Clang) {
-                cppCompiler.args "-std=c++1y", "-w", "-Ofast", "-g0"
+                cppCompiler.args "-std=c++1y", "-w", "-Ofast", "-g0", "-pthread"
+                linker.args "-pthread"
             }
             if (toolChain in VisualCpp) {
                 cppCompiler.args "/std:c++14", "/W0", "/EHsc", "/O2"
