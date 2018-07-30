@@ -56,7 +56,12 @@ model {
             sources.cpp {
                 source {
                     srcDirs "googletest/googletest/src"
-                    include "*.cc"
+                    include "**/*.cc"
+                    exclude "gtest.cc"
+                }
+                exportedHeaders {
+                    srcDirs "googletest/googletest/src"
+                    include "**/*.h"
                 }
                 exportedHeaders {
                     srcDirs "googletest/googletest/include"
