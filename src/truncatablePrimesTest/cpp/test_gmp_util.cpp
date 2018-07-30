@@ -15,7 +15,7 @@ TEST( GMPUtilTest, uint64ToMpz ) {
 	EXPECT_EQ( uint64_t_to_mpz_class( 10777124245617543848LLU ), 10777124245617543848_mpz );
 }
 
-TEST( GMPUtilTest, mpz64ToUint64General ) {
+TEST( GMPUtilTest, mpzToUint64General ) {
 	// A few random uints
 	EXPECT_EQ( mpz_class_to_uint64_t( 9681666858668565181_mpz ), 9681666858668565181LLU );
 	EXPECT_EQ( mpz_class_to_uint64_t( 4245223178035231249_mpz ), 4245223178035231249LLU );
@@ -24,11 +24,11 @@ TEST( GMPUtilTest, mpz64ToUint64General ) {
 	EXPECT_EQ( mpz_class_to_uint64_t( 10777124245617543848_mpz ), 10777124245617543848LLU );
 }
 
-TEST( GMPUtilTest, mpz64ToUint64Zero ) {
+TEST( GMPUtilTest, mpzToUint64Zero ) {
 	EXPECT_EQ( mpz_class_to_uint64_t( 0_mpz ), 0LLU );
 }
 
-TEST( GMPUtilTest, mpz64ToUint64Zero ) {
+TEST( GMPUtilTest, mpzToUint64Negative ) {
 	try {
 		mpz_class_to_uint64_t( -1_mpz );
 
@@ -50,7 +50,7 @@ TEST( GMPUtilTest, mpz64ToUint64Zero ) {
 	}
 }
 
-TEST( GMPUtilTest, mpz64ToUint64OutOfRange) {
+TEST( GMPUtilTest, mpzToUint64OutOfRange) {
 	try {
 		mpz_class_to_uint64_t( 18446744073709551616_mpz );
 
