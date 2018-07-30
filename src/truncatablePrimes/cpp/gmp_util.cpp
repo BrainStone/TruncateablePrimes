@@ -28,7 +28,7 @@ uint64_t mpz_class_to_uint64_t( const mpz_class& in ) throw(std::out_of_range) {
 
 	if ( word_count > 1 ) {
 		throw std::out_of_range( "The number cannot be stored in a uint64_t: " + in.get_str() );
-	} else if ( word_count < 0 ) {
+	} else if ( word_count == 0 ) {
 		return 0;
 	} else {
 		return *static_cast<uint64_t*>(raw_result);
