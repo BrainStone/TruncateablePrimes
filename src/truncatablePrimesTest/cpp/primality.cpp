@@ -20,21 +20,3 @@ TEST( PrimalityTest, SimplePrimes ) {
 	EXPECT_FALSE( is_prime( 566547_mpz ) );
 	EXPECT_TRUE( is_prime( 2305843009213693951_mpz ) );
 }
-
-TEST( PrimalityTest, ExpectTestCase ) {
-	EXPECT_TRUE( true );
-	EXPECT_TRUE( true );
-	EXPECT_TRUE( false );
-	EXPECT_TRUE( true );
-	EXPECT_TRUE( true );
-	EXPECT_TRUE( false );
-}
-
-TEST( PrimalityTest, AssertTestCase ) {
-	ASSERT_TRUE( true );
-	ASSERT_TRUE( true );
-	ASSERT_TRUE( false );
-	ASSERT_TRUE( true );
-	ASSERT_TRUE( true );
-	ASSERT_TRUE( false );
-}
