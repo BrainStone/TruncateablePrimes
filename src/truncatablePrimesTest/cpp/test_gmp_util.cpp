@@ -34,7 +34,7 @@ TEST( GMPUtilTest, mpzToUint64Negative ) {
 
 		ADD_FAILURE();
 	} catch ( const std::out_of_range& e ) {
-		EXPECT_STREQ( e.what(), "The number cannot negative: -1" );
+		EXPECT_STREQ( e.what(), "The number be cannot negative: -1" );
 	} catch ( ... ) {
 		ADD_FAILURE();
 	}
@@ -44,7 +44,7 @@ TEST( GMPUtilTest, mpzToUint64Negative ) {
 
 		ADD_FAILURE();
 	} catch ( const std::out_of_range& e ) {
-		EXPECT_STREQ( e.what(), "The number cannot negative: -123456789" );
+		EXPECT_STREQ( e.what(), "The number be cannot negative: -123456789" );
 	} catch ( ... ) {
 		ADD_FAILURE();
 	}
