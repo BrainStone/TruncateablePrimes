@@ -6,11 +6,11 @@
 
 bool is_prime( const mpz_class& number ) {
 	uint64_t prime;
-	uint64_t root = ((mpz_class) sqrt( number )).get_ui();
+	uint64_t root = mpz_class_to_uint64_t( sqrt( number ) );
 	primesieve::iterator it;
 
 	while ( (prime = it.next_prime()) <= root )
-		if ( number % prime == 0 )
+		if ( number % uint64_t_to_mpz_class( prime ) == 0 )
 			return false;
 
 	return true;

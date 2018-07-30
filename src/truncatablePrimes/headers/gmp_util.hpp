@@ -4,6 +4,9 @@
 //
 #pragma once
 
+#include <stdexcept>
+
 #include <gmpxx.h>
 
-mpz_class uint64_t_to_mpz_class( uint64_t in );
+mpz_class uint64_t_to_mpz_class( const uint64_t& in );
+uint64_t mpz_class_to_uint64_t( const mpz_class& in ) throw(std::out_of_range);
