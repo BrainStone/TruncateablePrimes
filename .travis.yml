@@ -45,6 +45,7 @@ before_install:
   - $CXX --version
 
 install:
+  - cd ..
   - curl -so mpir-3.0.0.tar.bz2 http://mpir.org/mpir-3.0.0.tar.bz2
   - tar -xjf mpir-3.0.0.tar.bz2
   - cd mpir-3.0.0
@@ -53,6 +54,7 @@ install:
   - make install
   - cd ..
   - rm -rf mpir-3.0.0*
+  - cd TruncateablePrimes
   - ./gradlew --console=plain
 
 script:
