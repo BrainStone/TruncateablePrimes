@@ -46,7 +46,7 @@ before_install:
 
 install:
   - curl -so mpir-3.0.0.tar.bz2 http://mpir.org/mpir-3.0.0.tar.bz2
-  - tar -xfj mpir-3.0.0.tar.bz2
+  - tar -xjf mpir-3.0.0.tar.bz2
   - cd mpir-3.0.0
   - ./configure
   - make

@@ -4,9 +4,6 @@
 //
 #pragma once
 
-#include "global_settings.hpp"
-
-#include <mpirxx.h>
-#include <primesieve.hpp>
-
-bool is_prime( const mpz_class& number );
+// WTF Microsoft?!? Why you no update __cplusplus
+// Means I have to manually enable C++ 11 stuff for MPIR!
+#define __GMPXX_USE_CXX11 1

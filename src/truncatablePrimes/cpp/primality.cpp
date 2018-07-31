@@ -6,7 +6,7 @@
 
 bool is_prime( const mpz_class& number ) {
 	uint64_t prime;
-	uint64_t root = sqrt( number ).get_val().get_ui();
+	uint64_t root = static_cast<mpz_class>(sqrt( number )).get_ui();
 	primesieve::iterator it;
 
 	while ( (prime = it.next_prime()) <= root )
