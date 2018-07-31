@@ -2,7 +2,7 @@
 // Copyright (c) 2018 Yannick Schinko. All rights reserved.
 // Licensed under the GPLv3 License. See LICENSE file in the project root for full license information.
 //
-#include <gtest/gtest.h>
+#include "global_test_settings.hpp"
 
 #include "primality.hpp"
 
