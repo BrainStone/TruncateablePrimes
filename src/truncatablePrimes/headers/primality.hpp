@@ -4,9 +4,7 @@
 //
 #pragma once
 
-#include <gmpxx.h>
+#include <mpirxx.h>
 #include <primesieve.hpp>
-
-#include "gmp_util.hpp"
 
 bool is_prime( const mpz_class& number );

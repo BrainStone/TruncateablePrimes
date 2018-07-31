@@ -8,20 +8,20 @@ model {
             easyloggingpp {
                 headers.srcDir "easyloggingpp/src"
             }
-            gmp {
-                headers.srcDir "gmp/include"
+            mpir {
+                headers.srcDir "mpir/include"
                 binaries.withType(StaticLibraryBinary) {
-                    def libName = targetPlatform.operatingSystem.windows ? 'gmp.lib' : 'libgmp.a'
-                    def libFile = file("gmp/lib/${libName}")
-                    staticLibraryFile = libFile.exists()? libFile : file("/usr/lib/x86_64-linux-gnu/${libName}")
+                    def libName = getLibName(targetPlatform, "mpir")
+                    def libFile = file("mpir/lib/${libName}")
+                    staticLibraryFile = libFile.exists()? libFile : file("/usr/local/lib/${libName}")
                 }
             }
-            gmpxx {
-                headers.srcDir "gmp/include"
+            mpirxx {
+                headers.srcDir "mpir/include"
                 binaries.withType(StaticLibraryBinary) {
-                    def libName = targetPlatform.operatingSystem.windows ? 'gmpxx.lib' : 'libgmpxx.a'
-                    def libFile = file("gmp/lib/${libName}")
-                    staticLibraryFile = libFile.exists()? libFile : file("/usr/lib/x86_64-linux-gnu/${libName}")
+                    def libName = getLibName(targetPlatform, "mpirxx")
+                    def libFile = file("mpir/lib/${libName}")
+                    staticLibraryFile = libFile.exists()? libFile : file("/usr/local/lib/${libName}")
                 }
             }
         }
@@ -89,4 +89,8 @@ model {
             }
         }
     }
+}
+
+def getLibName(def targetPlatform, String libName) {
+    return targetPlatform.operatingSystem.windows ? "${libName}.lib" : "lib${libName}.a"
 }

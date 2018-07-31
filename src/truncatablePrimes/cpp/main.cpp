@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 
-#include <gmpxx.h>
+#include <mpirxx.h>
 
 #include "primality.hpp"
 

@@ -31,15 +31,19 @@ Building is super straight forward:
 
 This will build the project and all its dependencies.
 
-### GMP
+### MPIR
 
-This program depends on the GMP library (libgmp) and its C++ Wrapper (libgmpxx). Due to the complexity I cannot include GMP here directly.  
+This program depends on the MPIR library (libmpir) and its C++ Wrapper (libmpirxx). Due to the complexity I cannot include MPIR here directly.
+
+You sadly need to build it yourself. Downloads can be found here: http://mpir.org/downloads.html  
+Be sure to use the version 3.0.0. Building instructions can be found in the documentation.
+
 In general you have two options:
 
-- Install it system wide. The library files should be in `/usr/lib/x86_64-linux-gnu` **(Linux only)**
+- Install it system wide. The library files should be in `/usr/local/lib/` **(Unix only)**
 - Provide the files yourself:
-  - Put the `gmp.h` and `gmpxx.h` in the `lib/gmp/include` dir
-  - Put the library files in the `lib/gmp/lib` dir *(`libgmp.a` and `libgmpxx.a` on Linux and OSX, `gmp.lib` and `gmpxx.lib` on Windows)*
+  - Put the `mpir.h` and `mpirxx.h` in the `lib/mpir/include` dir
+  - Put the library files in the `lib/mpir/lib` dir *(`libmpir.a` and `libmpirxx.a` on Linux and OSX, `mpir.lib` and `mpirxx.lib` on Windows)*
 
 ### Documentation
 

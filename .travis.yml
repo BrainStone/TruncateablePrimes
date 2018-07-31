@@ -12,7 +12,8 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-7
-            - libgmp-dev
+            - curl
+            - yasm
       env:
         - MATRIX_EVAL="export CC=gcc-7 && export CXX=g++-7"
     - os: osx
@@ -20,7 +21,7 @@ matrix:
       before_install:
         - brew update
         - rm '/usr/local/include/c++'
-        - brew install gcc
+        - brew install gcc curl yasm
         - eval "${MATRIX_EVAL}"
         - $CC --version
         - $CXX --version
@@ -33,7 +34,8 @@ matrix:
             - llvm-toolchain-trusty-5.0
           packages:
             - clang-5.0
-            - libgmp-dev
+            - curl
+            - yasm
       env:
         - MATRIX_EVAL="export CC=clang-5.0 && export CXX=clang++-5.0"
 
@@ -43,6 +45,14 @@ before_install:
   - $CXX --version
 
 install:
+  - curl http://mpir.org/mpir-3.0.0.tar.bz2
+  - tar -xfj mpir-3.0.0.tar.bz2
+  - rm mpir-3.0.0.tar.bz2
+  - cd mpir-3.0.0
+  - ./configure
+  - make
+  - make install
+  - cd ..
   - ./gradlew --console=plain
 
 script:

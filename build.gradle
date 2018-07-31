@@ -62,8 +62,8 @@ model {
 
             sources.cpp {
                 lib project: ":lib", library: "easyloggingpp", linkage: "api"
-                lib project: ":lib", library: "gmpxx", linkage: "static"
-                lib project: ":lib", library: "gmp", linkage: "static"
+                lib project: ":lib", library: "mpirxx", linkage: "static"
+                lib project: ":lib", library: "mpir", linkage: "static"
                 lib project: ":lib", library: "primesieve", linkage: "static"
             }
         }
@@ -115,8 +115,8 @@ model {
 
             // Temp
             lib project: ":lib", library: "easyloggingpp", linkage: "api"
-            lib project: ":lib", library: "gmpxx", linkage: "static"
-            lib project: ":lib", library: "gmp", linkage: "static"
+            lib project: ":lib", library: "mpirxx", linkage: "static"
+            lib project: ":lib", library: "mpir", linkage: "static"
             lib project: ":lib", library: "primesieve", linkage: "static"
 
             cppCompiler.define "GOOGLE_TEST"
