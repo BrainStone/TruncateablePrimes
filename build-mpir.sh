@@ -10,7 +10,7 @@ version="3.0.0"
 
 # Paths
 name="mpir-$version"
-base_path="$(realpath $(dirname "$0"))/lib/mpir"
+base_path="$(cd $(dirname "$0") && pwd -P)/lib/mpir"
 install_path="$base_path"
 build_path="$base_path/build"
 source_path="$build_path/$name"
