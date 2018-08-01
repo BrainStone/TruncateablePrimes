@@ -56,7 +56,13 @@ while getopts ":hkmqst" opt; do
       ;;
     q)
       verbose=false
-      ;&
+      echo_spacing=""
+      curl_params="-s"
+      wget_params="-q"
+      tar_params=""
+      configure_params="-q"
+      make_params="-s"
+      ;;
     m)
       echo_spacing=""
       curl_params="-s"
