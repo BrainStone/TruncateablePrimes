@@ -26,16 +26,18 @@ tar_params="-v"
 build_output="/dev/stdout"
 tune=false
 check=true
+keep_info=false
 keep=false
 
 ## Flags
 usage="Usage:
-$(basename "$0") [-h] [-kqst]
+$(basename "$0") [-h] [-ikmqst]
 Downloads and builds MPIR v$version for this project.
 The static library files will be stored in ./lib/mpir.
 
 Flags:
     -h  show this \e[1mh\e[0melp text
+    -i  keep the \e[1mi\e[0mnfo dir (./lib/mpir/info)
     -k  \e[1mk\e[0meep the build files (files in ./lib/mpir/build)
     -m  \e[1mm\e[0messages only (No command output except errors and show progress
           messages)
@@ -49,6 +51,9 @@ while getopts ":hkmqst" opt; do
     h)
       echo -e "$usage" >&2
       exit
+      ;;
+    i)
+      keep_info=true
       ;;
     k)
       keep=true
@@ -133,5 +138,5 @@ make install > "$build_output"
 # Cleanup
     $verbose && echo -e "$echo_spacing\e[1mCleanup...\e[0m$echo_spacing"
 cd "$base_path"
-rm -rf "$install_path/info"
+$keep_info || rm -rf "$install_path/info"
 $keep || rm -rf "$build_path"
