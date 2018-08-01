@@ -23,8 +23,7 @@ echo_spacing="\n\n"
 curl_params=""
 wget_params=""
 tar_params="-v"
-configure_params=""
-make_output="/dev/stdout"
+build_output="/dev/stdout"
 tune=false
 check=true
 keep=false
@@ -60,16 +59,14 @@ while getopts ":hkmqst" opt; do
       curl_params="-s"
       wget_params="-q"
       tar_params=""
-      configure_params="-q"
-      make_output="/dev/null"
+      build_output="/dev/null"
       ;;
     m)
       echo_spacing=""
       curl_params="-s"
       wget_params="-q"
       tar_params=""
-      configure_params="-q"
-      make_output="/dev/null"
+      build_output="/dev/null"
       ;;
     s)
       check=false
@@ -107,31 +104,31 @@ rm "$file"
 cd "$source_path"
 
     $verbose && echo -e "$echo_spacing\e[1mConfiguring build...\e[0m$echo_spacing"
-./configure $configure_params --enable-cxx --disable-shared --prefix="$install_path"
+./configure --enable-cxx --disable-shared --prefix="$install_path" > "$build_output"
 
     $verbose && echo -e "$echo_spacing\e[1mBuilding...\e[0m$echo_spacing"
-make > "$make_output"
+make > "$build_output"
 
 if $tune; then
       $verbose && echo -e "$echo_spacing\e[1mOptimizing MPIR for your local computer...\e[0m$echo_spacing"
   cd tune
-  make tuneup > "$make_output"
+  make tuneup > "$build_output"
   ./tuneup > gmp-mparam.h 2> tuneup.log
   mv -f gmp-mparam.h "$source_path$(head -n1 tuneup.log | sed 's/^Parameters for \.//')"
   rm tuneup.log
   cd ..
 
     $verbose && echo -e "$echo_spacing\e[1mBuilding optimized version...\e[0m$echo_spacing"
-  make > "$make_output"
+  make > "$build_output"
 fi
 
 if $check; then
       $verbose && echo -e "$echo_spacing\e[1mRunning Tests...\e[0m$echo_spacing"
-  make check > "$make_output"
+  make check > "$build_output"
 fi
 
     $verbose && echo -e "$echo_spacing\e[1mCopying files...\e[0m$echo_spacing"
-make install > "$make_output"
+make install > "$build_output"
 
 # Cleanup
     $verbose && echo -e "$echo_spacing\e[1mCleanup...\e[0m$echo_spacing"
