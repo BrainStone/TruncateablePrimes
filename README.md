@@ -38,8 +38,11 @@ This program depends on the MPIR library (libmpir) and its C++ Wrapper (libmpirx
 You sadly need to build it yourself. Downloads can be found here: http://mpir.org/downloads.html  
 Be sure to use the version 3.0.0. Building instructions can be found in the documentation.
 
-In general you have two options:
+In general you have three options:
 
+- **Recommended *(for Unix)***: Run the provided `./build-mpir.sh` script.  
+  For most cases the invocation `./build-mpir.sh -t` is the best choice.  
+  Run `./build-mpir.sh -h` to get an overview and explanation of all flags.
 - Install it system wide. The library files should be in `/usr/local/lib/` **(Unix only)**
 - Provide the files yourself:
   - Put the `mpir.h` and `mpirxx.h` in the `lib/mpir/include` dir
