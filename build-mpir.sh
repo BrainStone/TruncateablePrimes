@@ -33,7 +33,7 @@ keep=false
 usage="Usage:
 $(basename "$0") [-h] [-kqst]
 Downloads and builds MPIR v$version for this project.
-The static library files will be stored in ./lib/mpir. 
+The static library files will be stored in ./lib/mpir.
 
 Flags:
     -h  show this \e[1mh\e[0melp text
@@ -109,18 +109,21 @@ cd "$source_path"
     $verbose && echo -e "$echo_spacing\e[1mConfiguring build...\e[0m$echo_spacing"
 ./configure $configure_params --enable-cxx --disable-shared --prefix="$install_path"
 
+    $verbose && echo -e "$echo_spacing\e[1mBuilding...\e[0m$echo_spacing"
+make $make_params
+
 if $tune; then
-      $verbose && echo -e "$echo_spacing\e[1mRunning Tests...\e[0m$echo_spacing"
-  cd tune 
+      $verbose && echo -e "$echo_spacing\e[1mOptimizing MPIR for your local computer...\e[0m$echo_spacing"
+  cd tune
   make $make_params tuneup
   ./tuneup > gmp-mparam.h 2> tuneup.log
   mv -f gmp-mparam.h "$source_path$(head -n1 tuneup.log | sed 's/^Parameters for \.//')"
   rm tuneup.log
   cd ..
-fi
 
-    $verbose && echo -e "$echo_spacing\e[1mBuilding...\e[0m$echo_spacing"
-make $make_params
+    $verbose && echo -e "$echo_spacing\e[1mBuilding optimized version...\e[0m$echo_spacing"
+  make $make_params
+fi
 
 if $check; then
       $verbose && echo -e "$echo_spacing\e[1mRunning Tests...\e[0m$echo_spacing"
