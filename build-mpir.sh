@@ -114,7 +114,7 @@ if $tune; then
   cd tune
   make tuneup > "$build_output"
   ./tuneup > gmp-mparam.h 2> tuneup.log
-  mv -f gmp-mparam.h "$source_path$(head -n1 tuneup.log | sed 's/^Parameters for \.//')"
+  mv -f gmp-mparam.h "$(head -n1 tuneup.log | sed 's/^.*\.\//..\//')"
   rm tuneup.log
   cd ..
 
