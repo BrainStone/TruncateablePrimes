@@ -56,6 +56,7 @@ while getopts ":hkmqst" opt; do
       ;;
     q)
       verbose=false
+      ;&
     m)
       echo_spacing=""
       curl_params="-s"
