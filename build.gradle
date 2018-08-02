@@ -72,11 +72,11 @@ model {
     binaries {
         all {
             if (toolChain in Gcc) {
-                cppCompiler.args "-std=c++1y", "-Wall", "-Wextra", "-Wpedantic", "-fPIC", "-pthread"
+                cppCompiler.args "-std=c++1y", "-Wall", "-Wextra", "-fPIC", "-pthread"
                 linker.args "-pthread"
             }
             if (toolChain in Clang) {
-                cppCompiler.args "-std=c++1y", "-Weverything", "-pedantic", "-pthread"
+                cppCompiler.args "-std=c++1y", "-Weverything", "-pthread"
                 linker.args "-pthread"
             }
             if (toolChain in VisualCpp) {
