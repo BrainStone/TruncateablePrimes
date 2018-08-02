@@ -76,7 +76,7 @@ model {
                 linker.args "-pthread"
             }
             if (toolChain in Clang) {
-                cppCompiler.args "-std=c++1y", "-Weverything", "-Wno-reserved-id-macro", "-Wno-deprecated-dynamic-exception-spec", "-pthread"
+                cppCompiler.args "-std=c++1y", "-Weverything", "-Wno-reserved-id-macro", "-Wno-deprecated-dynamic-exception-spec", "-Wno-c++98-compat", "-Wno-sign-conversion", "-pthread"
                 linker.args "-pthread"
             }
             if (toolChain in VisualCpp) {
