@@ -45,7 +45,7 @@ before_install:
   - $CXX --version
 
 install:
-  - ./build-mpir.sh -s
+  - ./build-mpir.sh -ms
   - ./gradlew --console=plain
 
 script:
