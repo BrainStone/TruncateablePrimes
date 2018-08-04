@@ -35,9 +35,9 @@ print_message() {
 }
 
 dowload_mpir() {
-  if command -v curl; then
+  if command -v curl > /dev/null 2>&1; then
     curl $curl_params -o "$file" "$url"
-  elif command -v wget; then
+  elif command -v wget > /dev/null 2>&1; then
     wget $wget_params -O "$file" "$url"
   else
     printf "Neither curl nor wget is installed. This script needs to download mpir. Install either before you run the script again." >&2
