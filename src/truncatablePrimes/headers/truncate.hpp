@@ -7,6 +7,7 @@
 #include "global_settings.hpp"
 
 #include <stdexcept>
+#include <string>
 
 #include <mpirxx.h>
 
@@ -16,15 +17,19 @@ mpz_class truncate_left( const mpz_class& in );
 mpz_class truncate_right( const mpz_class& in );
 
 // Appendation
-mpz_class append_left( const mpz_class& in, char digit ) throw(std::invalid_argument);
-mpz_class append_left( const mpz_class& in, int16_t digit ) throw(std::invalid_argument);
-mpz_class append_left( const mpz_class& in, int32_t digit ) throw(std::invalid_argument);
-mpz_class append_left( const mpz_class& in, int64_t digit ) throw(std::invalid_argument);
+template<class T>
+mpz_class append_left( const mpz_class& in, T digit ) throw(std::invalid_argument) {
+	return append_left( in, static_cast<int16_t>(digit) );
+}
+template<> mpz_class append_left( const mpz_class& in, char digit ) throw(std::invalid_argument);
+template<> mpz_class append_left( const mpz_class& in, int16_t digit ) throw(std::invalid_argument);
 
-mpz_class append_right( const mpz_class& in, char digit ) throw(std::invalid_argument);
-mpz_class append_right( const mpz_class& in, int16_t digit ) throw(std::invalid_argument);
-mpz_class append_right( const mpz_class& in, int32_t digit ) throw(std::invalid_argument);
-mpz_class append_right( const mpz_class& in, int64_t digit ) throw(std::invalid_argument);
+template<class T>
+mpz_class append_right( const mpz_class& in, T digit ) throw(std::invalid_argument) {
+	return append_right( in, static_cast<int16_t>(digit) );
+}
+template<> mpz_class append_right( const mpz_class& in, char digit ) throw(std::invalid_argument);
+template<> mpz_class append_right( const mpz_class& in, int16_t digit ) throw(std::invalid_argument);
 
 // Helper methods
 mpz_class find_base_power( const mpz_class& in );

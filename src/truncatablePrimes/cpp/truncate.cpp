@@ -4,7 +4,7 @@
 //
 #include "truncate.hpp"
 
-using namespace std::literals;
+using namespace std::literals::string_literals;
 
 mpz_class truncate_left( const mpz_class & in ) {
 	return in % find_base_power( in );
@@ -14,19 +14,11 @@ mpz_class truncate_right( const mpz_class& in ) {
 	return in / 10;
 }
 
-mpz_class append_left( const mpz_class & in, char digit ) throw(std::invalid_argument) {
+template<> mpz_class append_left( const mpz_class & in, char digit ) throw(std::invalid_argument) {
 	return append_left( in, convert_char_digit( digit ) );
 }
 
-mpz_class append_left( const mpz_class & in, int16_t digit ) throw(std::invalid_argument) {
-	return append_left( in, static_cast<int64_t>(digit) );
-}
-
-mpz_class append_left( const mpz_class & in, int32_t digit ) throw(std::invalid_argument) {
-	return append_left( in, static_cast<int64_t>(digit) );
-}
-
-mpz_class append_left( const mpz_class & in, int64_t digit ) throw(std::invalid_argument) {
+template<> mpz_class append_left( const mpz_class & in, int16_t digit ) throw(std::invalid_argument) {
 	if ( (digit < 1) || (digit > 9) )
 		throw std::invalid_argument( std::to_string( digit ) + " is not a valid digit"s );
 
@@ -36,19 +28,11 @@ mpz_class append_left( const mpz_class & in, int64_t digit ) throw(std::invalid_
 		return in + (find_base_power( in ) * (digit * 10));
 }
 
-mpz_class append_right( const mpz_class & in, char digit ) throw(std::invalid_argument) {
+template<> mpz_class append_right( const mpz_class & in, char digit ) throw(std::invalid_argument) {
 	return append_right( in, convert_char_digit( digit ) );
 }
 
-mpz_class append_right( const mpz_class & in, int16_t digit ) throw(std::invalid_argument) {
-	return append_right( in, static_cast<int64_t>(digit) );
-}
-
-mpz_class append_right( const mpz_class & in, int32_t digit ) throw(std::invalid_argument) {
-	return append_right( in, static_cast<int64_t>(digit) );
-}
-
-mpz_class append_right( const mpz_class & in, int64_t digit ) throw(std::invalid_argument) {
+template<> mpz_class append_right( const mpz_class & in, int16_t digit ) throw(std::invalid_argument) {
 	if ( (digit < 0) || (digit > 9) )
 		throw std::invalid_argument( std::to_string( digit ) + " is not a valid digit"s );
 
