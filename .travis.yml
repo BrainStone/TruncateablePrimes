@@ -46,9 +46,19 @@ before_install:
 
 install:
   - ./build-mpir.sh -ms
+  - $CC --version
+  - $CXX --version
+  - eval "${MATRIX_EVAL}"
+  - $CC --version
+  - $CXX --version
   - ./gradlew --console=plain
 
 script:
+  - $CC --version
+  - $CXX --version
+  - eval "${MATRIX_EVAL}"
+  - $CC --version
+  - $CXX --version
   - ./gradlew --console=plain assemble
   - ./gradlew --console=plain check
 
