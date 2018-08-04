@@ -127,7 +127,7 @@ cd "$source_path"
     print_message "Configuring build..."
 ./configure --enable-cxx --disable-shared --prefix="$install_path" > "$build_output"
 
-    ECHO "$echo_spacing\e[1mBuilding...\e[0m$echo_spacing"
+    print_message "Building..."
 make > "$build_output"
 
 if $tune; then
