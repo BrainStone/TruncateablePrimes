@@ -54,5 +54,5 @@ script:
 
 after_failure:
   - shopt -s nullglob
-  - tail -n+1 {.,lib}/build/tmp/*{Library,Executable}*/*.txt 
+  - tail -n+1 {.,lib}/build/tmp/*{Library,Executable,GoogleTestExe}*/*.txt 
 

@@ -122,8 +122,8 @@ model {
             cppCompiler.define "GOOGLE_TEST"
 
             if (targetPlatform.operatingSystem.linux) {
-                cppCompiler.args '-pthread'
-                linker.args '-pthread'
+                cppCompiler.args "-pthread"
+                linker.args "-pthread"
             }
         }
     }
