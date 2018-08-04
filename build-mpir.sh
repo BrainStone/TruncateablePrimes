@@ -29,6 +29,22 @@ check=true
 keep_info=false
 keep=false
 
+## Functions
+function ECHO() {
+  $verbose && printf "$1\n"
+}
+
+function dowload_mpir() {
+  if command -v curl; then
+    curl $curl_params -o "$file" "$url"
+  elif command -v wget; then
+    wget $wget_params -O "$file" "$url"
+  else
+    printf "Neither curl nor wget is installed. This script needs to download mpir. Install either before you run the script again." >&2
+    exit 1
+  fi
+}
+
 ## Flags
 usage="Usage:
 $(basename "$0") [-h] [-ikmqst]
@@ -44,12 +60,13 @@ Flags:
     -q  \e[1mq\e[0muiet (No output except errors)
     -s  \e[1ms\e[0mkip the unit tests (make check)
     -t  run the \e[1mt\e[0muneup program before building (will optize MPIR for your local
-          system)"
+          system)
+"
 
 while getopts ":hkmqst" opt; do
   case $opt in
     h)
-      echo -e "$usage" >&2
+      printf "$usage" >&2
       exit
       ;;
     i)
@@ -80,11 +97,11 @@ while getopts ":hkmqst" opt; do
       tune=true
       ;;
     \?)
-      echo -e "Invalid option: -$OPTARG\n\n$usage" >&2
+      printf "Invalid option: -$OPTARG\n\n$usage" >&2
       exit 1
       ;;
     :)
-      echo -e "Option -$OPTARG requires an argument.\n\n$usage" >&2
+      printf "Option -$OPTARG requires an argument.\n\n$usage" >&2
       exit 1
       ;;
   esac
@@ -95,27 +112,26 @@ done
 mkdir -p "$build_path"
 cd "$build_path"
 
-# Download file (with fallback)
-    $verbose && echo -e "\e[1mDownloading $url...\e[0m$echo_spacing"
-curl $curl_params -o "$file" "$url" || \
-wget $wget_params -O "$file" "$url"
+# Download file
+    ECHO "\e[1mDownloading $url...\e[0m$echo_spacing"
+dowload_mpir
 
 # Untar
-    $verbose && echo -e "$echo_spacing\e[1mUnpacking $file...\e[0m$echo_spacing"
+    ECHO "$echo_spacing\e[1mUnpacking $file...\e[0m$echo_spacing"
 tar $tar_params -xjf "$file"
 rm "$file"
 
 # Build it
 cd "$source_path"
 
-    $verbose && echo -e "$echo_spacing\e[1mConfiguring build...\e[0m$echo_spacing"
+    ECHO "$echo_spacing\e[1mConfiguring build...\e[0m$echo_spacing"
 ./configure --enable-cxx --disable-shared --prefix="$install_path" > "$build_output"
 
-    $verbose && echo -e "$echo_spacing\e[1mBuilding...\e[0m$echo_spacing"
+    ECHO "$echo_spacing\e[1mBuilding...\e[0m$echo_spacing"
 make > "$build_output"
 
 if $tune; then
-      $verbose && echo -e "$echo_spacing\e[1mOptimizing MPIR for your local computer...\e[0m$echo_spacing"
+      ECHO "$echo_spacing\e[1mOptimizing MPIR for your local computer...\e[0m$echo_spacing"
   cd tune
   make tuneup > "$build_output"
   ./tuneup > gmp-mparam.h 2> tuneup.log
@@ -123,20 +139,20 @@ if $tune; then
   rm tuneup.log
   cd ..
 
-    $verbose && echo -e "$echo_spacing\e[1mBuilding optimized version...\e[0m$echo_spacing"
+    ECHO "$echo_spacing\e[1mBuilding optimized version...\e[0m$echo_spacing"
   make > "$build_output"
 fi
 
 if $check; then
-      $verbose && echo -e "$echo_spacing\e[1mRunning Tests...\e[0m$echo_spacing"
+      ECHO "$echo_spacing\e[1mRunning Tests...\e[0m$echo_spacing"
   make check > "$build_output"
 fi
 
-    $verbose && echo -e "$echo_spacing\e[1mCopying files...\e[0m$echo_spacing"
+    ECHO "$echo_spacing\e[1mCopying files...\e[0m$echo_spacing"
 make install > "$build_output"
 
 # Cleanup
-    $verbose && echo -e "$echo_spacing\e[1mCleanup...\e[0m$echo_spacing"
+    ECHO "$echo_spacing\e[1mCleanup...\e[0m$echo_spacing"
 cd "$base_path"
 $keep_info || rm -rf "$install_path/info"
 $keep || rm -rf "$build_path"
