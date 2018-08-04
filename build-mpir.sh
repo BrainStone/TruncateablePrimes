@@ -134,7 +134,7 @@ if $tune; then
       print_message "Optimizing MPIR for your local computer..."
   cd tune
   make tuneup > "$build_output"
-  ./tuneup > gmp-mparam.h 2> tuneup.log
+  ./tuneup 2> tuneup.log | tee gmp-mparam.h > "$build_output"
   mv -f gmp-mparam.h "$(head -n1 tuneup.log | sed 's/^.*\.\//..\//')"
   rm tuneup.log
   cd ..
