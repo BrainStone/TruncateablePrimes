@@ -30,8 +30,8 @@ keep_info=false
 keep=false
 
 ## Functions
-function ECHO() {
-  $verbose && printf "$1\n"
+function print_message() {
+  $verbose && printf "$echo_spacing\e[1m$1\e[0m$echo_spacing\n"
 }
 
 function dowload_mpir() {
@@ -113,25 +113,25 @@ mkdir -p "$build_path"
 cd "$build_path"
 
 # Download file
-    ECHO "\e[1mDownloading $url...\e[0m$echo_spacing"
+    print_message "Downloading $url..."
 dowload_mpir
 
 # Untar
-    ECHO "$echo_spacing\e[1mUnpacking $file...\e[0m$echo_spacing"
+    print_message "Unpacking $file..."
 tar $tar_params -xjf "$file"
 rm "$file"
 
 # Build it
 cd "$source_path"
 
-    ECHO "$echo_spacing\e[1mConfiguring build...\e[0m$echo_spacing"
+    print_message "Configuring build..."
 ./configure --enable-cxx --disable-shared --prefix="$install_path" > "$build_output"
 
     ECHO "$echo_spacing\e[1mBuilding...\e[0m$echo_spacing"
 make > "$build_output"
 
 if $tune; then
-      ECHO "$echo_spacing\e[1mOptimizing MPIR for your local computer...\e[0m$echo_spacing"
+      print_message "Optimizing MPIR for your local computer..."
   cd tune
   make tuneup > "$build_output"
   ./tuneup > gmp-mparam.h 2> tuneup.log
@@ -139,20 +139,20 @@ if $tune; then
   rm tuneup.log
   cd ..
 
-    ECHO "$echo_spacing\e[1mBuilding optimized version...\e[0m$echo_spacing"
+    print_message "Building optimized version..."
   make > "$build_output"
 fi
 
 if $check; then
-      ECHO "$echo_spacing\e[1mRunning Tests...\e[0m$echo_spacing"
+      print_message "Running Tests..."
   make check > "$build_output"
 fi
 
-    ECHO "$echo_spacing\e[1mCopying files...\e[0m$echo_spacing"
+    print_message "Copying files..."
 make install > "$build_output"
 
 # Cleanup
-    ECHO "$echo_spacing\e[1mCleanup...\e[0m$echo_spacing"
+    print_message "Cleanup..."
 cd "$base_path"
 $keep_info || rm -rf "$install_path/info"
 $keep || rm -rf "$build_path"
