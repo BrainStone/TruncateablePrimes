@@ -71,9 +71,6 @@ model {
 
     binaries {
         all {
-            println toolChain
-            println toolChain.dump()
-            
             if (toolChain in Gcc) {
                 cppCompiler.args "-std=c++1y", "-Wall", "-Wextra", "-fPIC", "-pthread"
                 linker.args "-pthread"
