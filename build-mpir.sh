@@ -30,11 +30,11 @@ keep_info=false
 keep=false
 
 ## Functions
-function print_message() {
+print_message() {
   $verbose && printf "$echo_spacing\e[1m$1\e[0m$echo_spacing\n"
 }
 
-function dowload_mpir() {
+dowload_mpir() {
   if command -v curl; then
     curl $curl_params -o "$file" "$url"
   elif command -v wget; then
