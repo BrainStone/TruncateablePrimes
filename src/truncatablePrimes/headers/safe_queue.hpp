@@ -29,8 +29,8 @@ public:
 	T pop();
 	T pop( std::chrono::milliseconds timeout ) throw(timeout_error);
 	bool tryPop( T& value, std::chrono::milliseconds timeout );
-	size_t size() const;
-	bool empty() const;
+	size_t size();
+	bool empty();
 };
 
 // Implementation
@@ -103,14 +103,14 @@ bool safe_queue<T, container>::tryPop( T& value, std::chrono::milliseconds timeo
 }
 
 template <typename T, typename container = std::deque<T>>
-size_t safe_queue<T, container>::size() const {
+size_t safe_queue<T, container>::size() {
 	std::unique_lock<std::mutex> lock( mutex );
 
 	return queue.size();
 }
 
 template<typename T, typename container>
-bool safe_queue<T, container>::empty() const {
+bool safe_queue<T, container>::empty() {
 	std::unique_lock<std::mutex> lock( mutex );
 
 	return queue.empty();
