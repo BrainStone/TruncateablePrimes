@@ -52,7 +52,7 @@ template <typename T, typename container = std::deque<T>>
 T safe_queue<T, container>::pop( std::chrono::milliseconds timeout ) throw(timeout_error) {
 	std::unique_lock<std::mutex> lock( mutex );
 
-	if ( !condition.wait_for( lock, dur, [&queue] { return !queue.empty(); } ) ) {
+	if ( !condition.wait_for( lock, timeout, [&queue] { return !queue.empty(); } ) ) {
 		throw timeout_error("No new element was added during the specified timeout of " + timeout);
 	}
 
@@ -66,7 +66,7 @@ template <typename T, typename container = std::deque<T>>
 bool safe_queue<T, container>::tryPop( T& value, std::chrono::milliseconds timeout ) {
 	std::unique_lock<std::mutex> lock( mutex );
 
-	if ( !condition.wait_for( lock, dur, [&queue] { return !queue.empty(); } ) ) {
+	if ( !condition.wait_for( lock, timeout, [&queue] { return !queue.empty(); } ) ) {
 		return false;
 	}
 
@@ -81,6 +81,13 @@ size_t safe_queue<T, container>::size() const {
 	std::unique_lock<std::mutex> lock( mutex );
 
 	return queue.size();
+}
+
+template<typename T, typename container>
+bool safe_queue<T, container>::empty() const {
+	std::unique_lock<std::mutex> lock( mutex );
+
+	return queue.empty();
 }
 
 #endif // #ifndef SAFE_QUEUE_INC_CPP

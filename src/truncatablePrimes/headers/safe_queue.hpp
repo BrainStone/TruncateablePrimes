@@ -31,6 +31,7 @@ public:
 	T pop( std::chrono::milliseconds timeout ) throw(timeout_error);
 	bool tryPop( T& value, std::chrono::milliseconds timeout );
 	size_t size() const;
+	bool empty() const;
 };
 
 #include "safe_queue.inc.cpp"
