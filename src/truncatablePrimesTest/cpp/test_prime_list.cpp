@@ -4,7 +4,6 @@
 //
 #include "global_test_settings.hpp"
 
-#include <atomic>
 #include <random>
 #include <thread>
 
@@ -59,7 +58,7 @@ TEST( PrimeListTest, Concurrency ) {
 	std::thread early_threads[7];
 
 	for ( int i = 0; i < 7; ++i ) {
-		early_threads[i] = std::thread( [&, i] { helper( list, i + 1 ); } );
+		early_threads[i] = std::thread( helper, std::ref( list ), i + 1 );
 	}
 
 	for ( std::thread& thread : early_threads ) {
@@ -69,7 +68,7 @@ TEST( PrimeListTest, Concurrency ) {
 	std::thread late_threads[2];
 
 	for ( int i = 0; i < 2; ++i ) {
-		late_threads[i] = std::thread( [&, i] { helper( list, i + 8 ); } );
+		late_threads[i] = std::thread( helper, std::ref( list ), i + 8 );
 	}
 
 	for ( std::thread& thread : late_threads ) {
