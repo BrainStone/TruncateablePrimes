@@ -41,7 +41,7 @@ timeout_error::timeout_error( const std::string& what_arg )
 timeout_error::timeout_error( const char* what_arg )
 	: std::runtime_error( what_arg ) {};
 
-template <typename T, typename container = std::deque<T>>
+template <typename T, typename container>
 void safe_queue<T, container>::push( const T & value ) {
 	{
 		std::unique_lock<std::mutex> lock( mutex );
@@ -51,7 +51,7 @@ void safe_queue<T, container>::push( const T & value ) {
 	condition.notify_one();
 }
 
-template <typename T, typename container = std::deque<T>>
+template <typename T, typename container>
 void safe_queue<T, container>::push( T && value ) {
 	{
 		std::unique_lock<std::mutex> lock( mutex );
@@ -61,7 +61,7 @@ void safe_queue<T, container>::push( T && value ) {
 	condition.notify_one();
 }
 
-template <typename T, typename container = std::deque<T>>
+template <typename T, typename container>
 T safe_queue<T, container>::pop() {
 	std::unique_lock<std::mutex> lock( mutex );
 
@@ -73,7 +73,7 @@ T safe_queue<T, container>::pop() {
 	return out;
 }
 
-template <typename T, typename container = std::deque<T>>
+template <typename T, typename container>
 T safe_queue<T, container>::pop( std::chrono::milliseconds timeout ) throw(timeout_error) {
 	std::unique_lock<std::mutex> lock( mutex );
 
@@ -89,7 +89,7 @@ T safe_queue<T, container>::pop( std::chrono::milliseconds timeout ) throw(timeo
 	return out;
 }
 
-template <typename T, typename container = std::deque<T>>
+template <typename T, typename container>
 bool safe_queue<T, container>::tryPop( T& value, std::chrono::milliseconds timeout ) {
 	std::unique_lock<std::mutex> lock( mutex );
 
@@ -102,7 +102,7 @@ bool safe_queue<T, container>::tryPop( T& value, std::chrono::milliseconds timeo
 	return true;
 }
 
-template <typename T, typename container = std::deque<T>>
+template <typename T, typename container>
 size_t safe_queue<T, container>::size() {
 	std::unique_lock<std::mutex> lock( mutex );
 
