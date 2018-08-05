@@ -38,7 +38,7 @@ TEST( PrimeListTest, Order ) {
 	EXPECT_EQ( rit, list.rend() );
 }
 
-constexpr int count = 10000;
+constexpr int count = 1000;
 
 void helper( prime_list<>& list, int digit ) {
 	std::default_random_engine generator( digit );
