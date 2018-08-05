@@ -11,15 +11,14 @@
 #include <mutex>
 #include <stdexcept>
 
+class timeout_error : public std::runtime_error {
+public:
+	timeout_error( const std::string& what_arg );
+	timeout_error( const char* what_arg );
+};
+
 template <typename T, typename container = std::deque<T>>
 class safe_queue {
-public:
-	class timeout_error : public std::runtime_error {
-	public:
-		timeout_error( const std::string& what_arg );
-		timeout_error( const char* what_arg );
-	};
-
 private:
 	std::mutex              mutex;
 	std::condition_variable condition;
@@ -27,8 +26,8 @@ private:
 public:
 	void push( const T& value );
 	void push( T&& value );
-	T pop();
-	T pop( std::chrono::milliseconds timeout ) throw(timeout_error);
+	T& pop();
+	T& pop( std::chrono::milliseconds timeout ) throw(timeout_error);
 	bool tryPop( T& value, std::chrono::milliseconds timeout );
 	size_t size() const;
 	bool empty() const;
@@ -36,12 +35,10 @@ public:
 
 // Implementation
 
-template <typename T, typename container = std::deque<T>>
-safe_queue<T, container>::timeout_error::timeout_error( const std::string& what_arg )
+timeout_error::timeout_error( const std::string& what_arg )
 	: std::runtime_error( what_arg ) {};
 
-template <typename T, typename container = std::deque<T>>
-safe_queue<T, container>::timeout_error::timeout_error( const char* what_arg )
+timeout_error::timeout_error( const char* what_arg )
 	: std::runtime_error( what_arg ) {};
 
 template <typename T, typename container = std::deque<T>>
@@ -65,10 +62,10 @@ void safe_queue<T, container>::push( T && value ) {
 }
 
 template <typename T, typename container = std::deque<T>>
-T safe_queue<T, container>::pop() {
+T& safe_queue<T, container>::pop() {
 	std::unique_lock<std::mutex> lock( mutex );
 
-	condition.wait( lock, [&queue] { return !queue.empty(); } );
+	condition.wait( lock, [this] { return !this->queue.empty(); } );
 
 	T out( queue.front() );
 	queue.pop_front();
@@ -77,10 +74,10 @@ T safe_queue<T, container>::pop() {
 }
 
 template <typename T, typename container = std::deque<T>>
-T safe_queue<T, container>::pop( std::chrono::milliseconds timeout ) throw(timeout_error) {
+T& safe_queue<T, container>::pop( std::chrono::milliseconds timeout ) throw(timeout_error) {
 	std::unique_lock<std::mutex> lock( mutex );
 
-	if ( !condition.wait_for( lock, timeout, [&queue] { return !queue.empty(); } ) ) {
+	if ( !condition.wait_for( lock, timeout, [this] { return !this->queue.empty(); } ) ) {
 		throw timeout_error( "No new element was added during the specified timeout of " + timeout );
 	}
 
@@ -94,7 +91,7 @@ template <typename T, typename container = std::deque<T>>
 bool safe_queue<T, container>::tryPop( T& value, std::chrono::milliseconds timeout ) {
 	std::unique_lock<std::mutex> lock( mutex );
 
-	if ( !condition.wait_for( lock, timeout, [&queue] { return !queue.empty(); } ) ) {
+	if ( !condition.wait_for( lock, timeout, [this] { return !this->queue.empty(); } ) ) {
 		return false;
 	}
 
