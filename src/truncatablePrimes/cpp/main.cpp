@@ -15,6 +15,8 @@ void do_primnecheck( mpz_class num );
 int main() {
 	const std::string number( "357686312646216567629137" );
 
+	std::cout << mpz_class( 9681666858668565181LLU ) << std::endl;
+
 	for ( int i = number.size() - 1; i >= 0; --i ) {
 		do_primnecheck( mpz_class( std::string( number, i ) ) );
 	}
