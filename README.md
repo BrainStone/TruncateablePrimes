@@ -31,6 +31,19 @@ Building is super straight forward:
 
 This will build the project and all its dependencies.
 
+### Compiler version
+
+For this project to build properly, you need an up to date version of your compiler:
+
+| Compiler | Minimum Version |
+| --- | --- |
+| Clang | Unknown |
+| GCC | 7+ |
+| Visual Studio | 2015+ |
+
+*(If you find that it compiles on different versions than stated here, open an issue stating on which compiler version it compiled successfully. (Including the
+tests!))*
+
 ### MPIR
 
 This program depends on the MPIR library (libmpir) and its C++ Wrapper (libmpirxx). Due to the complexity I cannot include MPIR here directly.
@@ -57,3 +70,5 @@ This project comes with a Doxyfile. You can either generate the documentation ma
 ## License
 
 This is project is licensed under the GPLv3 license.
+
+Projects included in this project through submodules or other means are licensed under their respective licenses.
