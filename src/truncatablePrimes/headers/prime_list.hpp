@@ -15,14 +15,14 @@
 template<typename T = mpz_class>
 class prime_list {
 private:
-	typename typedef std::set<T, std::less<T>> list_type;
+	typedef typename std::set<T, std::less<T>> list_type;
 
 	std::mutex mutex;
 	list_type  list;
 
 public:
-	typename typedef list_type::const_iterator iterator;
-	typename typedef list_type::const_reverse_iterator reverse_iterator;
+	typedef typename list_type::const_iterator iterator;
+	typedef typename list_type::const_reverse_iterator reverse_iterator;
 
 	std::pair<iterator, bool> insert( const T& value );
 	std::pair<iterator, bool> insert( T&& value );
