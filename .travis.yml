@@ -36,7 +36,6 @@ matrix:
       before_install:
         - brew update
         - rm '/usr/local/include/c++'
-        - brew rm clang
         - brew install gcc curl yasm
         - eval "${MATRIX_EVAL}"
         - $CC --version
@@ -74,7 +73,7 @@ install:
 
 script:
   - ./gradlew --console=plain assemble
-  - ./gradlew --console=plain check
+  - ./gradlew --console=plain build
 
 after_failure:
   - shopt -s nullglob
