@@ -3,6 +3,8 @@ language: cpp
 git:
   depth: false
 
+sudo: required
+
 matrix:
   include:
     - os: linux
