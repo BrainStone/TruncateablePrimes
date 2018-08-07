@@ -187,13 +187,13 @@ TEST( TruncatingTest, FindBasePower ) {
 
 	constexpr int iterations = 500;
 	std::default_random_engine generator;
-	const std::uniform_int_distribution<int> all_digits( 0, 9 );
-	const std::uniform_int_distribution<int> no_zero( 1, 9 );
+	std::uniform_int_distribution<int> all_digits( 0, 9 );
+	std::uniform_int_distribution<int> no_zero( 1, 9 );
 
 	for ( int i = 0; i < iterations; ++i ) {
 		generator.seed( i );
-		mpz_class num = no_zero( generator );
-		mpz_class base = 1;
+		mpz_class num( no_zero( generator ) );
+		mpz_class base( 1 );
 
 		for ( int j = 0; j < iterations; ++j ) {
 			num = append_right( num, all_digits( generator ) );

@@ -10,7 +10,7 @@
 #include "prime_list.hpp"
 #include "truncate.hpp"
 
-const std::uniform_int_distribution<int> all_digits( 0, 9 );
+std::uniform_int_distribution<int> all_digits( 0, 9 );
 
 TEST( PrimeListTest, Order ) {
 	prime_list<int> list;
