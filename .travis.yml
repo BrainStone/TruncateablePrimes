@@ -15,7 +15,7 @@ matrix:
             - curl
             - yasm
       env:
-        - MATRIX_EVAL="export CC=gcc-7 && export CXX=g++-7"
+        - MATRIX_EVAL="export CC=gcc-7 && export CXX=g++-7 && sudo update-alternatives --install \$(which gcc) gcc \$(which CC) 100 && sudo update-alternatives --install \$(which g++) g++ \$(which CXX) 100"
     - os: osx
       osx_image: xcode9.2
       before_install:
@@ -37,7 +37,7 @@ matrix:
             - curl
             - yasm
       env:
-        - MATRIX_EVAL="export CC=clang-5.0 && export CXX=clang++-5.0"
+        - MATRIX_EVAL="export CC=clang-5.0 && export CXX=clang++-5.0 && sudo update-alternatives --install \$(which clang) clang \$(which CC) 100 && sudo update-alternatives --install \$(which clang++) clang++ \$(which CXX) 100"
 
 before_install:
   - eval "${MATRIX_EVAL}"
