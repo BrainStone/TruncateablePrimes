@@ -76,12 +76,12 @@ TEST( PrimeListTest, Concurrency ) {
 	}
 
 	mpz_class zero( 0 );
-	mpz_class &const last_val = zero;
+	const mpz_class* last_val = &zero;
 
-	for ( const mpz_class &const val : list ) {
-		EXPECT_GT( val, last_val );
+	for ( const mpz_class& val : list ) {
+		EXPECT_GT( val, *last_val );
 
-		last_val = val;
+		last_val = &val;
 	}
 
 	EXPECT_EQ( list.size(), (count + 1) * 9 );
