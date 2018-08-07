@@ -5,8 +5,6 @@ git:
 
 sudo: required
 
-env: # important!
-
 matrix:
   include:
     - os: linux
@@ -57,7 +55,7 @@ matrix:
             - yasm
       env:
         - BUILD_NAME=Clang-5
-        - MATRIX_EVAL="export CC=clang-5.0 && export CXX=clang++-5.0 &&& sudo apt-get remove gcc g++"
+        - MATRIX_EVAL="export CC=clang-5.0 && export CXX=clang++-5.0 && sudo apt-get remove gcc g++"
   allow_failures:
     - env: BUILD_NAME=GCC-6
     - env: BUILD_NAME=OSX-GCC
@@ -65,13 +63,8 @@ matrix:
 
 before_install:
   - eval "${MATRIX_EVAL}"
-  - if [[ $CC == gcc* ]]; then
-  -   sudo update-alternatives --install \$(which gcc) gcc \$(which \$CC) 100
-  -   sudo update-alternatives --install \$(which g++) g++ \$(which \$CXX) 100
-  - elif [[ $CC == clang* ]];; then
-  -   sudo update-alternatives --install \$(which clang) clang \$(which \$CC) 100
-  -   sudo update-alternatives --install \$(which clang++) clang++ \$(which \$CXX) 100
-  - fi 
+  - if [[ $CC == gcc* ]]; then sudo update-alternatives --install \$(which gcc) gcc \$(which \$CC) 100; sudo update-alternatives --install \$(which g++) g++ \$(which \$CXX) 100; fi
+  - if [[ $CC == clang* ]]; then sudo update-alternatives --install \$(which clang) clang \$(which \$CC) 100; sudo update-alternatives --install \$(which clang++) clang++ \$(which \$CXX) 100; fi 
   - $CC --version
   - $CXX --version
 
