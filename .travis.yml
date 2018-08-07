@@ -38,6 +38,8 @@ matrix:
         - rm '/usr/local/include/c++'
         - brew install gcc curl yasm
         - eval "${MATRIX_EVAL}"
+        - if [[ $CC == gcc* ]]; then update-alternatives --install $(which gcc) gcc $(which $CC) 100; update-alternatives --install $(which g++) g++ $(which $CXX) 100; fi
+        - if [[ $CC == clang* ]]; then update-alternatives --install $(which clang) clang $(which $CC) 100; update-alternatives --install $(which clang++) clang++ $(which $CXX) 100; fi
         - $CC --version
         - $CXX --version
       env:
@@ -73,7 +75,7 @@ install:
 
 script:
   - ./gradlew --console=plain assemble
-  - ./gradlew --console=plain build
+  - ./gradlew --console=plain check
 
 after_failure:
   - shopt -s nullglob
