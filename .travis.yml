@@ -63,8 +63,8 @@ matrix:
 
 before_install:
   - eval "${MATRIX_EVAL}"
-  - if [[ $CC == gcc* ]]; then sudo update-alternatives --install \$(which gcc) gcc \$(which \$CC) 100; sudo update-alternatives --install \$(which g++) g++ \$(which \$CXX) 100; fi
-  - if [[ $CC == clang* ]]; then sudo update-alternatives --install \$(which clang) clang \$(which \$CC) 100; sudo update-alternatives --install \$(which clang++) clang++ \$(which \$CXX) 100; fi 
+  - if [[ $CC == gcc* ]]; then sudo update-alternatives --install $(which gcc) gcc $(which $CC) 100; sudo update-alternatives --install $(which g++) g++ $(which $CXX) 100; fi
+  - if [[ $CC == clang* ]]; then sudo update-alternatives --install $(which clang) clang $(which $CC) 100; sudo update-alternatives --install $(which clang++) clang++ $(which $CXX) 100; fi 
   - $CC --version
   - $CXX --version
 
