@@ -4,6 +4,8 @@
 //
 #pragma once
 
+// DOCME: Add documentation
+
 #include "global_settings.hpp"
 
 #include <condition_variable>

@@ -9,4 +9,12 @@
 #include <mpirxx.h>
 #include <primesieve.hpp>
 
+/*!
+ * \brief Checks if the input is a prime number
+ *
+ * This method uses the prime sieving method to determine whether the input number is prime or not.
+ *
+ * \param number the number to be checked for primality
+ * \return <code>true</code> if number is prime, <code>false</code> if not.
+ */
 bool is_prime( const mpz_class& number );

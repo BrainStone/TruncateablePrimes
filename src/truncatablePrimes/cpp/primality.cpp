@@ -5,6 +5,9 @@
 #include "primality.hpp"
 
 bool is_prime( const mpz_class& number ) {
+	if ( number < 2 ) // 2 is the smallest prime number
+		return false;
+
 	uint64_t prime;
 	uint64_t root = static_cast<mpz_class>(sqrt( number )).get_ui();
 	primesieve::iterator it;

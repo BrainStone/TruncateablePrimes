@@ -33,3 +33,17 @@ TEST( PrimalityTest, TwinPrimeProducts ) {
 	// 12345th twin prime pair
 	EXPECT_FALSE( is_prime( 1612181_mpz * 1612183_mpz ) );
 }
+
+TEST( PrimalityTest, NegativeNumbers ) {
+	// Making sure we don't cut off too early
+	EXPECT_TRUE( is_prime( 3_mpz ) );
+	EXPECT_TRUE( is_prime( 2_mpz ) );
+
+	// Everything else is either negative or too small
+	EXPECT_FALSE( is_prime( 1_mpz ) );
+	EXPECT_FALSE( is_prime( 0_mpz ) );
+	EXPECT_FALSE( is_prime( -1_mpz ) );
+	EXPECT_FALSE( is_prime( -123456789012345678901234567890_mpz ) );
+	// The positive value is a prime
+	EXPECT_FALSE( is_prime( -2305843009213693951_mpz ) );
+}
