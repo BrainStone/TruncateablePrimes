@@ -15,8 +15,8 @@
 
 class timeout_error : public std::runtime_error {
 public:
-	timeout_error( const std::string& what_arg );
-	timeout_error( const char* what_arg );
+	inline timeout_error( const std::string& what_arg );
+	inline timeout_error( const char* what_arg );
 };
 
 template <typename T, typename container = std::deque<T>>
