@@ -41,6 +41,9 @@ public:
 	void operator()();
 
 	void init_candidates();
+
+	bool finished();
+	size_t candidates_in_queue();
 };
 
 class left_truncatble_prime_worker : public truncatble_prime_worker<9> {
@@ -82,7 +85,7 @@ void truncatble_prime_worker<count>::operator()() {
 }
 
 template<size_t count>
-inline void truncatble_prime_worker<count>::init_candidates() {
+void truncatble_prime_worker<count>::init_candidates() {
 	if ( !canditates.empty() )
 		throw std::invalid_argument("Canidates list needs to be empty in order to be initialized!");
 
@@ -90,4 +93,14 @@ inline void truncatble_prime_worker<count>::init_candidates() {
 	canditates.push( 3_mpz );
 	canditates.push( 5_mpz );
 	canditates.push( 7_mpz );
+}
+
+template<size_t count>
+bool truncatble_prime_worker<count>::finished() {
+	return !canditates.empty();
+}
+
+template<size_t count>
+size_t truncatble_prime_worker<count>::candidates_in_queue() {
+	return canditates.size();
 }
