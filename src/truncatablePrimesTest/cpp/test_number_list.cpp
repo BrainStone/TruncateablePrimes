@@ -7,20 +7,20 @@
 #include <random>
 #include <thread>
 
-#include "prime_list.hpp"
+#include "number_list.hpp"
 #include "truncate.hpp"
 
 std::uniform_int_distribution<int> all_digits( 0, 9 );
 
-TEST( PrimeListTest, Order ) {
-	prime_list<int> list;
+TEST( NumberListTest, Order ) {
+	number_list<int> list;
 
 	list.insert( 48 );
 	list.insert( -425 );
 	list.insert( 78 );
 	list.insert( 4652 );
 
-	prime_list<int>::iterator it( list.begin() );
+	number_list<int>::iterator it( list.begin() );
 
 	EXPECT_EQ( *it++, -425 );
 	EXPECT_EQ( *it++, 48 );
@@ -28,7 +28,7 @@ TEST( PrimeListTest, Order ) {
 	EXPECT_EQ( *it++, 4652 );
 	EXPECT_EQ( it, list.end() );
 
-	prime_list<int>::reverse_iterator rit( list.rbegin() );
+	number_list<int>::reverse_iterator rit( list.rbegin() );
 
 	EXPECT_EQ( *rit++, 4652 );
 	EXPECT_EQ( *rit++, 78 );
@@ -39,7 +39,7 @@ TEST( PrimeListTest, Order ) {
 
 constexpr int count = 1000;
 
-void helper( prime_list<>& list, int digit ) {
+void helper( number_list<mpz_class>& list, int digit ) {
 	std::default_random_engine generator( digit );
 	mpz_class num( digit );
 
@@ -52,8 +52,8 @@ void helper( prime_list<>& list, int digit ) {
 	}
 }
 
-TEST( PrimeListTest, Concurrency ) {
-	prime_list<> list;
+TEST( NumberListTest, Concurrency ) {
+	number_list<mpz_class> list;
 
 	std::thread early_threads[7];
 

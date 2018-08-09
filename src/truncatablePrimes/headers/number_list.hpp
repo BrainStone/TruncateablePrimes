@@ -12,10 +12,8 @@
 #include <mutex>
 #include <set>
 
-#include <mpirxx.h>
-
-template<typename T = mpz_class>
-class prime_list {
+template<typename T>
+class number_list {
 private:
 	typedef typename std::set<T, std::less<T>> list_type;
 
@@ -42,45 +40,45 @@ public:
 // Implementation
 
 template<typename T>
-std::pair<typename prime_list<T>::iterator, bool> prime_list<T>::insert( const T& value ) {
+std::pair<typename number_list<T>::iterator, bool> number_list<T>::insert( const T& value ) {
 	std::unique_lock<std::mutex> lock( mutex );
 
 	return list.insert( value );
 }
 
 template<typename T>
-std::pair<typename prime_list<T>::iterator, bool> prime_list<T>::insert( T&& value ) {
+std::pair<typename number_list<T>::iterator, bool> number_list<T>::insert( T&& value ) {
 	std::unique_lock<std::mutex> lock( mutex );
 
 	return list.insert( value );
 }
 
 template<typename T>
-typename prime_list<T>::iterator prime_list<T>::begin() const {
+typename number_list<T>::iterator number_list<T>::begin() const {
 	return list.cbegin();
 }
 
 template<typename T>
-typename prime_list<T>::iterator prime_list<T>::end() const {
+typename number_list<T>::iterator number_list<T>::end() const {
 	return list.cend();
 }
 
 template<typename T>
-typename prime_list<T>::reverse_iterator prime_list<T>::rbegin() const {
+typename number_list<T>::reverse_iterator number_list<T>::rbegin() const {
 	return list.crbegin();
 }
 
 template<typename T>
-typename prime_list<T>::reverse_iterator prime_list<T>::rend() const {
+typename number_list<T>::reverse_iterator number_list<T>::rend() const {
 	return list.crend();
 }
 
 template<typename T>
-bool prime_list<T>::empty() const noexcept {
+bool number_list<T>::empty() const noexcept {
 	return list.empty();
 }
 
 template<typename T>
-size_t prime_list<T>::size() const noexcept {
+size_t number_list<T>::size() const noexcept {
 	return list.size();
 }
