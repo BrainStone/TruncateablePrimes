@@ -35,10 +35,10 @@ This will build the project and all its dependencies.
 
 For this project to build properly, you need an up to date version of your compiler:
 
-| Compiler | Minimum Version |
+| Compiler | Required Version |
 | --- | --- |
-| Clang | Unknown |
-| GCC | 7+ |
+| Clang | 5+ |
+| GCC | 6+ |
 | Visual Studio | 2015+ |
 
 *(If you find that it compiles on different versions than stated here, open an issue stating on which compiler version it compiled successfully. (Including the
