@@ -8,7 +8,6 @@
 
 #include "global_settings.hpp"
 
-#include <list>
 #include <mutex>
 #include <set>
 
