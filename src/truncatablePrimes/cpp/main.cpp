@@ -16,6 +16,9 @@ void do_primnecheck( mpz_class num );
 
 #ifndef GOOGLE_TEST
 int main() {
+	// Needed for EasyLoggingPP
+	std::locale::global( std::locale( "" ) );
+
 	const std::string number( "357686312646216567629137" );
 
 	for ( int i = number.size() - 1; i >= 0; --i ) {
