@@ -33,10 +33,11 @@ protected:
 	appender_func appender;
 	const std::array<digit_int, count> digits;
 	prime_list& primes;
-	candidate_queue& canditates;
+	candidate_queue& candidates;
+	std::chrono::milliseconds timeout;
 
 public:
-	truncatble_prime_worker( appender_func appender, const std::array<digit_int, count> digits, prime_list& primes, candidate_queue& canditates );
+	truncatble_prime_worker( appender_func appender, const std::array<digit_int, count> digits, prime_list& primes, candidate_queue& candidates );
 
 	void operator()();
 
@@ -44,63 +45,71 @@ public:
 
 	bool finished();
 	size_t candidates_in_queue();
+
+	void set_timeout( std::chrono::milliseconds new_timeout );
 };
 
 class left_truncatble_prime_worker : public truncatble_prime_worker<9> {
 public:
-	inline left_truncatble_prime_worker( prime_list& primes, candidate_queue& canditates ) :
-		truncatble_prime_worker( append_left<digit_int>, { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, primes, canditates ) {};
+	inline left_truncatble_prime_worker( prime_list& primes, candidate_queue& candidates ) :
+		truncatble_prime_worker( append_left<digit_int>, { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, primes, candidates ) {};
 };
 
 class right_truncatble_prime_worker : public truncatble_prime_worker<4> {
 public:
-	inline right_truncatble_prime_worker( prime_list& primes, candidate_queue& canditates ) :
-		truncatble_prime_worker( append_right<digit_int>, { 1, 3, 7, 9 }, primes, canditates ) {};
+	inline right_truncatble_prime_worker( prime_list& primes, candidate_queue& candidates ) :
+		truncatble_prime_worker( append_right<digit_int>, { 1, 3, 7, 9 }, primes, candidates ) {};
 };
 
 // Implementation
 
 template<size_t count>
-truncatble_prime_worker<count>::truncatble_prime_worker( appender_func appender, const std::array<digit_int, count> digits, prime_list& primes, candidate_queue& canditates ) :
+truncatble_prime_worker<count>::truncatble_prime_worker( appender_func appender, const std::array<digit_int, count> digits, prime_list& primes, candidate_queue& candidates ) :
 	appender( appender ),
 	digits( digits ),
 	primes( primes ),
-	canditates( canditates ) {}
+	candidates( candidates ),
+	timeout( 1000ms ) {
+	using namespace std::literals::chrono_literals;
+}
 
 template<size_t count>
 void truncatble_prime_worker<count>::operator()() {
-	using std::chrono_literals;
-
 	mpz_class candidate;
 
-	while ( canditates.tryPop( candidate, 1000ms ) ) {
+	while ( candidates.tryPop( candidate, timeout ) ) {
 		if ( !is_prime( candidate ) )
 			continue;
 
-		primes.insert( canditates );
+		primes.insert( candidate );
 
 		for ( digit_int digit : digits )
-			canditates.push( appender( candidate, digit ) );
+			candidates.push( appender( candidate, digit ) );
 	}
 }
 
 template<size_t count>
 void truncatble_prime_worker<count>::init_candidates() {
-	if ( !canditates.empty() )
-		throw std::invalid_argument("Canidates list needs to be empty in order to be initialized!");
+	if ( !candidates.empty() )
+		throw std::invalid_argument( "Canidates list needs to be empty in order to be initialized!" );
 
-	canditates.push( 2_mpz );
-	canditates.push( 3_mpz );
-	canditates.push( 5_mpz );
-	canditates.push( 7_mpz );
+	candidates.push( 2_mpz );
+	candidates.push( 3_mpz );
+	candidates.push( 5_mpz );
+	candidates.push( 7_mpz );
 }
 
 template<size_t count>
 bool truncatble_prime_worker<count>::finished() {
-	return !canditates.empty();
+	return !candidates.empty();
 }
 
 template<size_t count>
 size_t truncatble_prime_worker<count>::candidates_in_queue() {
-	return canditates.size();
+	return candidates.size();
+}
+
+template<size_t count>
+void truncatble_prime_worker<count>::set_timeout( std::chrono::milliseconds new_timeout ) {
+	timeout = new_timeout;
 }
