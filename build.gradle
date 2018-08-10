@@ -61,7 +61,7 @@ model {
             }
 
             sources.cpp {
-                lib project: ":lib", library: "easyloggingpp", linkage: "api"
+                lib project: ":lib", library: "easyloggingpp", linkage: "static"
                 lib project: ":lib", library: "mpirxx", linkage: "static"
                 lib project: ":lib", library: "mpir", linkage: "static"
                 lib project: ":lib", library: "primesieve", linkage: "static"
@@ -71,6 +71,12 @@ model {
 
     binaries {
         all {
+            // EasyLoggingPP
+            cppCompiler.define "ELPP_THREAD_SAFE"
+            cppCompiler.define "ELPP_FORCE_USE_STD_THREAD"
+            cppCompiler.define "ELPP_UNICODE"
+            cppCompiler.define "ELPP_FEATURE_CRASH_LOG"
+
             if (toolChain in Gcc) {
                 cppCompiler.args "-std=c++1y", "-Wall", "-Wextra", "-fPIC", "-pthread"
                 linker.args "-pthread"

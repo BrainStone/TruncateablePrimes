@@ -9,6 +9,9 @@
 
 #include "primality.hpp"
 
+#include <easylogging++.h>
+INITIALIZE_EASYLOGGINGPP
+
 void do_primnecheck( mpz_class num );
 
 #ifndef GOOGLE_TEST

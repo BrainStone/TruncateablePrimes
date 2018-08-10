@@ -5,9 +5,6 @@ model {
     repositories {
         libs(PrebuiltLibraries) {
             def libBasePath = 
-            easyloggingpp {
-                headers.srcDir "easyloggingpp/src"
-            }
             mpir {
                 headers.srcDir "mpir/include"
                 binaries.withType(StaticLibraryBinary) {
@@ -28,6 +25,31 @@ model {
     }
 
     components {
+        easyloggingpp(NativeLibrarySpec) {
+            if(System.properties['sun.arch.data.model'] == "64") {
+                targetPlatform "x64"
+            } else {
+                targetPlatform "x86"
+            }
+
+            sources.cpp {
+                source {
+                    srcDirs "easylogging/src"
+                    include "**/*.cc"
+                }
+                exportedHeaders {
+                    srcDirs "easylogging/src"
+                    include "**/*.h"
+                }
+              }
+
+              binaries.all {
+                  cppCompiler.define "ELPP_THREAD_SAFE"
+                  cppCompiler.define "ELPP_FORCE_USE_STD_THREAD"
+                  cppCompiler.define "ELPP_UNICODE"
+                  cppCompiler.define "ELPP_FEATURE_CRASH_LOG"
+              }
+        }
         primesieve(NativeLibrarySpec) {
             if(System.properties['sun.arch.data.model'] == "64") {
                 targetPlatform "x64"
