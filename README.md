@@ -37,8 +37,8 @@ For this project to build properly, you need an up to date version of your compi
 
 | Compiler | Required Version |
 | --- | --- |
-| Clang | 5+ |
-| GCC | 6+ |
+| Clang | 3.4+ |
+| GCC | 5+ (4.9 might work) |
 | Visual Studio | 2015+ |
 
 *(If you find that it compiles on different versions than stated here, open an issue stating on which compiler version it compiled successfully. (Including the
